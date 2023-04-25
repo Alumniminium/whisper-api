@@ -2,8 +2,9 @@
 
 ## Setup
 ```
-git clone https://github.com/Alumniminium/whisper-api.git
-docker build -t whisper-api:latest .
+git clone https://github.com/Alumniminium/whisper-api.git \
+cd whisper-api \
+docker build -t whisper-api:latest . \
 docker run -p 80:80 whisper-api
 
 # or
