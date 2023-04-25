@@ -148,3 +148,9 @@ output_file="${filename%.*}.txt"
 
 curl -sNX 'POST' "https://localhost/streamPlainText?model=$model&singleLine=$singleLine&includeTimestamps=$timestamps" -F "f=@$filename" | tee "$output_file"
 ```
+
+## Contributions
+
+I'll accept pretty much any PR. 
+
+No requirements as long as it works.
