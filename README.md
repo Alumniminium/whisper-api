@@ -27,6 +27,7 @@ dotnet run
 ```
 curl -X 'GET' 'https://localhost/models'
 ```
+### output
 ```
 [
   "fast",
@@ -38,6 +39,8 @@ curl -X 'GET' 'https://localhost/models'
 Please see [AI.cs](/AI.cs) for filename mappings*
 
 ### Speech to text
+*[The TV Screen.mp3](/The%20TV%20Screen.mp3) is included in the repo*
+
 **stream lines as they become available**
 ```
 curl -sNX 'POST' \
@@ -50,7 +53,7 @@ curl -X 'POST' \
   'http://localhost/getPlainText?model=veryslow&singleLine=false&includeTimestamps=true' \
   -F 'f=@The TV Screen.mp3'
 ```
-*[sample file](/The%20TV%20Screen.mp3) is included in the repo*
+### output
 ```
 [00:00:00 - 00:00:20]	 [music]
 [00:00:20 - 00:00:23]	 People look at their past just like it happened yesterday
