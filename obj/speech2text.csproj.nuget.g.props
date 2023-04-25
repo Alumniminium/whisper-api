@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
+    <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">/home/trbl/.nuget/packages/</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">/home/trbl/.nuget/packages/</NuGetPackageFolders>
+    <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.4.0</NuGetToolVersion>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <SourceRoot Include="/home/trbl/.nuget/packages/" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Content Include="$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/linux-arm/whisper.so" Condition="Exists('$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/linux-arm/whisper.so')">
+      <NuGetPackageId>Whisper.net</NuGetPackageId>
+      <NuGetPackageVersion>1.2.2</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Pack>false</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>runtimes/linux-arm/whisper.so</TargetPath>
+      <DestinationSubDirectory>runtimes/linux-arm/</DestinationSubDirectory>
+      <Private>True</Private>
+      <Link>runtimes/linux-arm/whisper.so</Link>
+    </Content>
+    <Content Include="$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/linux-arm64/whisper.so" Condition="Exists('$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/linux-arm64/whisper.so')">
+      <NuGetPackageId>Whisper.net</NuGetPackageId>
+      <NuGetPackageVersion>1.2.2</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Pack>false</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>runtimes/linux-arm64/whisper.so</TargetPath>
+      <DestinationSubDirectory>runtimes/linux-arm64/</DestinationSubDirectory>
+      <Private>True</Private>
+      <Link>runtimes/linux-arm64/whisper.so</Link>
+    </Content>
+    <Content Include="$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/linux-x64/whisper.so" Condition="Exists('$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/linux-x64/whisper.so')">
+      <NuGetPackageId>Whisper.net</NuGetPackageId>
+      <NuGetPackageVersion>1.2.2</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Pack>false</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>runtimes/linux-x64/whisper.so</TargetPath>
+      <DestinationSubDirectory>runtimes/linux-x64/</DestinationSubDirectory>
+      <Private>True</Private>
+      <Link>runtimes/linux-x64/whisper.so</Link>
+    </Content>
+    <Content Include="$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/osx-arm64/whisper.dylib" Condition="Exists('$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/osx-arm64/whisper.dylib')">
+      <NuGetPackageId>Whisper.net</NuGetPackageId>
+      <NuGetPackageVersion>1.2.2</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Pack>false</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>runtimes/osx-arm64/whisper.dylib</TargetPath>
+      <DestinationSubDirectory>runtimes/osx-arm64/</DestinationSubDirectory>
+      <Private>True</Private>
+      <Link>runtimes/osx-arm64/whisper.dylib</Link>
+    </Content>
+    <Content Include="$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/osx-x64/whisper.dylib" Condition="Exists('$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/osx-x64/whisper.dylib')">
+      <NuGetPackageId>Whisper.net</NuGetPackageId>
+      <NuGetPackageVersion>1.2.2</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Pack>false</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>runtimes/osx-x64/whisper.dylib</TargetPath>
+      <DestinationSubDirectory>runtimes/osx-x64/</DestinationSubDirectory>
+      <Private>True</Private>
+      <Link>runtimes/osx-x64/whisper.dylib</Link>
+    </Content>
+    <Content Include="$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/win-arm64/whisper.dll" Condition="Exists('$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/win-arm64/whisper.dll')">
+      <NuGetPackageId>Whisper.net</NuGetPackageId>
+      <NuGetPackageVersion>1.2.2</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Pack>false</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>runtimes/win-arm64/whisper.dll</TargetPath>
+      <DestinationSubDirectory>runtimes/win-arm64/</DestinationSubDirectory>
+      <Private>True</Private>
+      <Link>runtimes/win-arm64/whisper.dll</Link>
+    </Content>
+    <Content Include="$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/win-x64/whisper.dll" Condition="Exists('$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/win-x64/whisper.dll')">
+      <NuGetPackageId>Whisper.net</NuGetPackageId>
+      <NuGetPackageVersion>1.2.2</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Pack>false</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>runtimes/win-x64/whisper.dll</TargetPath>
+      <DestinationSubDirectory>runtimes/win-x64/</DestinationSubDirectory>
+      <Private>True</Private>
+      <Link>runtimes/win-x64/whisper.dll</Link>
+    </Content>
+    <Content Include="$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/win-x86/whisper.dll" Condition="Exists('$(NuGetPackageRoot)whisper.net/1.2.2/contentFiles/any/netstandard2.1/runtimes/win-x86/whisper.dll')">
+      <NuGetPackageId>Whisper.net</NuGetPackageId>
+      <NuGetPackageVersion>1.2.2</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Pack>false</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>runtimes/win-x86/whisper.dll</TargetPath>
+      <DestinationSubDirectory>runtimes/win-x86/</DestinationSubDirectory>
+      <Private>True</Private>
+      <Link>runtimes/win-x86/whisper.dll</Link>
+    </Content>
+  </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.extensions.apidescription.server/6.0.5/build/Microsoft.Extensions.ApiDescription.Server.props" Condition="Exists('$(NuGetPackageRoot)microsoft.extensions.apidescription.server/6.0.5/build/Microsoft.Extensions.ApiDescription.Server.props')" />
+    <Import Project="$(NuGetPackageRoot)swashbuckle.aspnetcore/6.4.0/build/Swashbuckle.AspNetCore.props" Condition="Exists('$(NuGetPackageRoot)swashbuckle.aspnetcore/6.4.0/build/Swashbuckle.AspNetCore.props')" />
+  </ImportGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">/home/trbl/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5</PkgMicrosoft_Extensions_ApiDescription_Server>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "dxnIPGnYlkCA7oTLypYmSwNUFpxYjZwriXiZd5udCMKbZkBcB6DNIpiDeQIhfeInJ5dyRz0hKmklKfxLyAdSKw==",
+  "success": true,
+  "projectFilePath": "/home/trbl/coding/fortress/speech2text/speech2text.csproj",
+  "expectedPackageFiles": [
+    "/home/trbl/.nuget/packages/cliwrap/3.6.0/cliwrap.3.6.0.nupkg.sha512",
+    "/home/trbl/.nuget/packages/microsoft.aspnetcore.openapi/7.0.3/microsoft.aspnetcore.openapi.7.0.3.nupkg.sha512",
+    "/home/trbl/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/home/trbl/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
+    "/home/trbl/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "/home/trbl/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "/home/trbl/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "/home/trbl/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.4.0/swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
+    "/home/trbl/.nuget/packages/whisper.net/1.2.2/whisper.net.1.2.2.nupkg.sha512"
+  ],
+  "logs": []
+}
