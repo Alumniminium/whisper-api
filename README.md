@@ -2,6 +2,8 @@
 
 This API can only transcribe one file at a time. Every further request will wait for the current transcription to finish. This is because the [underlying library is a bit shit atm](https://github.com/sandrohanea/whisper.net/issues/28).
 
+![](/demo.gif)
+
 ## Setup
 ```
 git clone https://github.com/Alumniminium/whisper-api.git \
