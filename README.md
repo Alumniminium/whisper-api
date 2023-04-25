@@ -11,7 +11,7 @@ docker run -p 80:80 whisper-api
 
 dotnet run
 ```
-*models are stored in /models/, so you can mount a volume there*
+*models are stored in /models/, so you can mount a volume there. Please see [AI.cs](/AI.cs) for path and filenames*
 
 *you can also set the environment variable `THREAD_COUNT` to change the number of threads used by the server. The default is half your CPU Cores, the threads are pinned to the first `n` cores without regard for hyperthreading or efficiency cores, see: `proc.ProcessorAffinity = (1 << THREAD_COUNT) - 1;` in `Program.cs`*
 
@@ -29,6 +29,7 @@ curl -X 'GET' 'https://localhost/models'
   "veryslow"
 ]
 ```
+Please see [AI.cs](/AI.cs) for filename mappings*
 
 ### Speech to text
 **stream lines as they become available**
