@@ -1,5 +1,3 @@
-# herstfortress/speech2text:latest
-
 FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy as build
 WORKDIR /app
 COPY . .
