@@ -122,3 +122,22 @@ curl -X 'POST' \
 [00:03:21 - 00:03:24]	 Someday I will be on the TV screen
 [00:03:24 - 00:03:43]	 [Music]
 ```
+
+## Sample Script
+> transcribe.sh
+```
+#!/bin/bash
+
+if [[ $# -eq 0 ]]; then
+  echo "Usage: $0 <filename>"
+  exit 1
+fi
+
+filename="$1"
+model="veryslow"
+singleLine="false"
+timestamps="true"
+output_file="${filename%.*}.txt"
+
+curl -sNX 'POST' "https://localhost/streamPlainText?model=$model&singleLine=$singleLine&includeTimestamps=$timestamps" -F "f=@$filename" | tee "$output_file"
+```
