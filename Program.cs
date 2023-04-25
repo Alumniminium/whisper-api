@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
-using speech2text;
 using speech2text.Services;
 
 namespace speech2text;
