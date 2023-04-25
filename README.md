@@ -38,7 +38,7 @@ curl -X 'POST' \
   'http://localhost/getPlainText?model=veryslow&singleLine=false&includeTimestamps=true' \
   -F 'f=@The TV Screen.mp3'
 ```
-*sample file is included in the repo*
+*[sample file](/blob/master/The%20TV%20Screen.mp3) is included in the repo*
 ```
 [00:00:00 - 00:00:20]	 [music]
 [00:00:20 - 00:00:23]	 People look at their past just like it happened yesterday
