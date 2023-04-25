@@ -31,13 +31,13 @@ curl -X 'GET' 'https://localhost/models'
 ```
 
 ### Speech to text
-**stream**
+**stream lines as they become available**
 ```
-curl -X 'POST' \
+curl -sNX 'POST' \
   'http://localhost/streamPlainText?model=veryslow&singleLine=false&includeTimestamps=true' \
   -F 'f=@The TV Screen.mp3'
 ```
-**get**
+**get full transcript**
 ```
 curl -X 'POST' \
   'http://localhost/getPlainText?model=veryslow&singleLine=false&includeTimestamps=true' \
