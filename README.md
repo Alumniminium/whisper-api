@@ -221,3 +221,8 @@ whisper-tiny-q4_0.txt
 whisper-small-q4_0.txt
 ```
 
+## Contributions
+
+I'll accept pretty much any PR. 
+
+No requirements as long as it works.
