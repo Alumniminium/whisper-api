@@ -17,42 +17,99 @@ docker run -p 80:80 whisper-api
 
 dotnet run
 ```
-*models are stored in /models/, so you can mount a volume there. Please see [AI.cs](/AI.cs) for path and filenames*
+*set the environment variable `THREAD_COUNT` to change the number of threads used by the server.*
 
-*you can also set the environment variable `THREAD_COUNT` to change the number of threads used by the server. The default is half your CPU Cores, the threads are pinned to the first `n` cores without regard for hyperthreading or efficiency cores, see: `proc.ProcessorAffinity = (1 << THREAD_COUNT) - 1;` in `Program.cs`*
+*set the environment variable `MODEL_DIR` to change where it looks for models*
+
+*set the environment variable `DEFAULT_MODEL` to change the default model*
+
 
 ## Usage
 
 ### Get models
 ```
-curl -X 'GET' 'https://localhost/models'
+curl http://localhost:5045/models
 ```
 ### output
 ```
-[
-  "fast",
-  "normal",
-  "slow",
-  "veryslow"
-]
+whisper-base-q16.bin
+whisper-large-v1-q16.bin
+whisper-small-en-q16.bin
+whisper-small-q16.bin
+whisper-medium-q4_0.bin
+whisper-medium-q5_1.bin
+whisper-medium-q4_2.bin
+whisper-medium-q4_1.bin
+whisper-tiny-en-q16.bin
+whisper-base-q4_0.bin
+whisper-base-q4_1.bin
+whisper-base-q4_2.bin
+whisper-base-q5_1.bin
+whisper-base-q5_0.bin
+whisper-large-v1-q5_0.bin
+whisper-large-v1-q5_1.bin
+whisper-large-v1-q4_2.bin
+whisper-large-v1-q4_1.bin
+whisper-large-v1-q4_0.bin
+whisper-large-v2-q4_1.bin
+whisper-large-v2-q4_2.bin
+whisper-large-v2-q5_1.bin
+whisper-large-v2-q5_0.bin
+whisper-large-v2-q4_0.bin
+whisper-medium-q16.bin
+whisper-base-en-q16.bin
+whisper-medium-en-q16.bin
+whisper-tiny-q16.bin
+whisper-large-v0-q16.bin
+whisper-tiny-en-q5_1.bin
+whisper-tiny-en-q5_0.bin
+whisper-tiny-en-q4_0.bin
+whisper-tiny-en-q4_1.bin
+whisper-tiny-en-q4_2.bin
+whisper-tiny-q5_1.bin
+whisper-tiny-q5_0.bin
+whisper-tiny-q4_0.bin
+whisper-tiny-q4_1.bin
+whisper-tiny-q4_2.bin
+whisper-base-en-q5_1.bin
+whisper-base-en-q4_1.bin
+whisper-base-en-q4_2.bin
+whisper-base-en-q5_0.bin
+whisper-base-en-q4_0.bin
+whisper-small-en-q4_0.bin
+whisper-small-en-q4_1.bin
+whisper-small-en-q4_2.bin
+whisper-small-en-q5_0.bin
+whisper-small-en-q5_1.bin
+whisper-small-q5_1.bin
+whisper-small-q5_0.bin
+whisper-small-q4_2.bin
+whisper-small-q4_1.bin
+whisper-small-q4_0.bin
+whisper-medium-en-q5_1.bin
+whisper-medium-en-q5_0.bin
+whisper-medium-en-q4_2.bin
+whisper-medium-en-q4_1.bin
+whisper-medium-en-q4_0.bin
+whisper-large-v0-q5_1.bin
+whisper-large-v0-q5_0.bin
+whisper-large-v0-q4_2.bin
+whisper-large-v0-q4_1.bin
+whisper-large-v0-q4_0.bin
 ```
-Please see [AI.cs](/AI.cs) for filename mappings*
 
 ### Speech to text
-*[The TV Screen.mp3](/The%20TV%20Screen.mp3) is included in the repo*
+*[The TV Screen.mp3](/evaluation/The%20TV%20Screen.mp3) is included in the repo*
+
+*[terence.mp3](/evaluation/terence.mp3) is included in the repo*
 
 **stream lines as they become available**
 ```
 curl -sNX 'POST' \
-  'http://localhost/streamPlainText?model=veryslow&singleLine=false&includeTimestamps=true' \
+  'http://localhost/stream?model=whisper-large-v2-q5_1.bin&singleLine=false&timestamps=true' \
   -F 'f=@The TV Screen.mp3'
 ```
-**get full transcript**
-```
-curl -X 'POST' \
-  'http://localhost/getPlainText?model=veryslow&singleLine=false&includeTimestamps=true' \
-  -F 'f=@The TV Screen.mp3'
-```
+
 ### output
 ```
 [00:00:00 - 00:00:20]	 [music]
@@ -141,10 +198,26 @@ if [[ $# -eq 0 ]]; then
 fi
 
 filename="$1"
-model="veryslow"
+model="whisper-large-v0-q5_1.bin"
 singleLine="false"
 timestamps="true"
 output_file="${filename%.*}.txt"
 
-curl -sNX 'POST' "https://localhost/streamPlainText?model=$model&singleLine=$singleLine&includeTimestamps=$timestamps" -F "f=@$filename" | tee "$output_file"
+curl -sNX 'POST' "https://localhost/stream?model=$model&singleLine=$singleLine&timestamps=$timestamps" -F "f=@$filename" | tee "$output_file"
 ```
+
+## Evaluation Script
+*[eval-models.sh](/evaluation/eval-models.sh) is included in the repo at /evaluation*
+
+This script will transcribe the file with every model you have available and store the transcripts by model-namme.
+
+Eg.
+
+```
+whisper-medium-q4_0.txt
+whisper-large-v1-q4_0.txt
+whisper-large-v2-q4_0.txt
+whisper-tiny-q4_0.txt
+whisper-small-q4_0.txt
+```
+
