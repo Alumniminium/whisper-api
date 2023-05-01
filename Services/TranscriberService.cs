@@ -8,18 +8,29 @@ namespace speech2text.Services
 {
     public interface ITranscriberService
     {
-        IAsyncEnumerable<SegmentData> Process(IFormFile file, string model, CancellationToken ctx = default);
+        IAsyncEnumerable<SegmentData> Process(TranscribeDto dto, CancellationToken ctx = default);
+        public string GetStatistics();
     }
     public class TranscriberService : ITranscriberService
     {
-        public async IAsyncEnumerable<SegmentData> Process(IFormFile file, string model, [EnumeratorCancellation] CancellationToken ctx)
-        {
-            while (AI.ActiveJobs > 0 && ctx.IsCancellationRequested == false)
-                await Task.Delay(1000);
-            if (ctx.IsCancellationRequested)
-                yield break;
+        public WhisperFactory Factory = WhisperFactory.FromPath(Path.Combine(Program.MODEL_DIR, Program.DEFAULT_MODEL));
+        public WhisperProcessor Runner;
+        private double _WaitTime = 0d;
+        private double _ModelLoadTime = 0d;
+        private double _IngestTime = 0d;
+        private double _InferTime = 0d;
+        private double TotalTime => _WaitTime + _ModelLoadTime + _IngestTime + _InferTime;
 
-            Interlocked.Increment(ref AI.ActiveJobs);
+        public bool Busy;
+        public string ModelName = Program.DEFAULT_MODEL;
+
+        public TranscriberService() => Runner = Factory.CreateBuilder().WithThreads(Program.THREAD_COUNT).Build();
+
+        public async IAsyncEnumerable<SegmentData> Process(TranscribeDto dto, [EnumeratorCancellation] CancellationToken ctx)
+        {
+            ResetStatistics();
+            await BusyWait();
+            await SetupModel(dto);
 
             var inputTmpFilePath = Path.GetTempFileName();
             var decodedFile = Path.GetTempFileName();
@@ -28,16 +39,18 @@ namespace speech2text.Services
 
             try
             {
+                var start = Stopwatch.GetTimestamp();
                 inputFileStream = File.Create(inputTmpFilePath);
-                file.CopyTo(inputFileStream);
+                dto.file.CopyTo(inputFileStream);
 
                 await Cli.Wrap("ffmpeg").WithArguments($"""-i "{inputTmpFilePath}" -vn -ar 16000 -ac 1 -c:a pcm_s16le -f wav -y "{decodedFile}""").WithValidation(CommandResultValidation.None).ExecuteBufferedAsync(ctx);
-
-                using var processor = MakeProcessor(model);
                 decodedFileStream = File.OpenRead(decodedFile);
+                _IngestTime = Stopwatch.GetElapsedTime(start).TotalSeconds;
 
-                await foreach (var segment in processor.ProcessAsync(decodedFileStream, ctx))
+                start = Stopwatch.GetTimestamp();
+                await foreach (var segment in Runner.ProcessAsync(decodedFileStream, ctx))
                     yield return segment;
+                _InferTime = Stopwatch.GetElapsedTime(start).TotalSeconds;
             }
             finally
             {
@@ -45,45 +58,53 @@ namespace speech2text.Services
                 decodedFileStream.Dispose();
                 File.Delete(decodedFile);
                 File.Delete(inputTmpFilePath);
-
-                float cpuUsage;
-                while ((cpuUsage = await GetCpuUsage()) > 10)
-                    Console.WriteLine($"CPU usage too high ({cpuUsage:0.00})%, waiting...");
-
-                Interlocked.Decrement(ref AI.ActiveJobs);
+                Busy=false;
             }
         }
 
-        private static WhisperProcessor MakeProcessor(string model)
+        private async Task BusyWait()
         {
-            var b = model switch
+            var start = Stopwatch.GetTimestamp();
+
+            while (Busy)
+                await Task.Delay(100);
+            Busy = true;
+            _WaitTime = Stopwatch.GetElapsedTime(start).TotalSeconds;
+        }
+
+        private async Task SetupModel(TranscribeDto dto)
+        {
+            var start = Stopwatch.GetTimestamp();
+            if (!string.IsNullOrWhiteSpace(dto.model) && ModelName != dto.model)
             {
-                "fast" => AI.TinyFactory.CreateBuilder(),
-                "normal" => AI.BaseFactory.CreateBuilder(),
-                "slow" => AI.MediumFactory.CreateBuilder(),
-                "veryslow" => AI.LargeFactory.CreateBuilder(),
-                _ => throw new ArgumentException("invalid model. use 'GET /models' to get a list of available models"),
+                await Runner.DisposeAsync();
+                Factory.Dispose();
+                Factory = WhisperFactory.FromPath(Path.Combine(Program.MODEL_DIR, dto.model));
+                Runner = Factory.CreateBuilder().WithThreads(Program.THREAD_COUNT).WithPrintTimestamps(dto.timestamps).Build();
+            }
+            _ModelLoadTime = Stopwatch.GetElapsedTime(start).TotalSeconds;
+        }
+
+        public string GetStatistics()
+        {
+            var stats = new Dictionary<string, double>
+            {
+                { "Wait Time ", _WaitTime },
+                { "Model Load", _ModelLoadTime },
+                { "Decoding  ", _IngestTime },
+                { "Transcribe", _InferTime },
+                { "Total Time", TotalTime },
             };
 
-            b = b.WithLanguage("auto")
-                 .WithThreads(Program.THREAD_COUNT);
-
-            return b.Build();
+            return $"{Environment.NewLine}{{END}}{Environment.NewLine}" + string.Join(Environment.NewLine, stats.Select(kv => $"{kv.Key}: {kv.Value:0.00} sec")) + Environment.NewLine;
         }
 
-        private static async Task<float> GetCpuUsage()
+        private void ResetStatistics()
         {
-            var startTimestamp = Stopwatch.GetTimestamp();
-            var startCPU = System.Diagnostics.Process.GetCurrentProcess().TotalProcessorTime;
-            await Task.Delay(1000);
-            var endCPU = System.Diagnostics.Process.GetCurrentProcess().TotalProcessorTime;
-            var msPassed = Stopwatch.GetElapsedTime(startTimestamp).TotalMilliseconds;
-
-            var msCPU = (endCPU - startCPU).TotalMilliseconds;
-            var usage = msCPU / (Environment.ProcessorCount * msPassed);
-
-            return (float)usage * 100f;
+            _WaitTime = 0d;
+            _ModelLoadTime = 0d;
+            _IngestTime = 0d;
+            _InferTime = 0d;
         }
-
     }
 }

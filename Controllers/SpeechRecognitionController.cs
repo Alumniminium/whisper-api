@@ -18,46 +18,31 @@ public class Speech2TextController : ControllerBase
 
     [HttpGet]
     [Route("/models")]
-    public string[] GetModels() => new string[] { "fast", "normal", "slow", "veryslow" };
-
-    [HttpPost]
-    [Route("/streamPlainText")]
     [Produces("text/plain")]
-    public async IAsyncEnumerable<string> GetTextStream(IFormFile f, string model = "fast", bool singleLine = false, bool includeTimestamps = true)
+    public IEnumerable<string> GetModels()
     {
-        _logger.LogInformation("Streaming Plaintext of '{FileName}' ({Length}) using model: {Model}", f.FileName, f.Length, model);
-
-        await foreach (var segment in _trans.Process(f, model, HttpContext.RequestAborted))
+        var models = Directory.GetFiles(Program.MODEL_DIR);
+        foreach (var model in models)
         {
-            _logger.LogInformation("[{start} - {end}] {text}", segment.Start, segment.End, segment.Text);
-            yield return includeTimestamps
-                            ? $"[{segment.Start.ToString(@"hh\:mm\:ss")} - {segment.End.ToString(@"hh\:mm\:ss")}]\t{segment.Text}" + (singleLine ? string.Empty : Environment.NewLine)
-                            : segment.Text + (singleLine ? string.Empty : Environment.NewLine);
+            _logger.LogInformation("{model}", model);
+            yield return Path.GetFileName(model) + Environment.NewLine;
         }
-        _logger.LogInformation("Finished transcribing and streaming: {FileName}", f.FileName);
-        yield return Environment.NewLine;
     }
 
     [HttpPost]
-    [Route("/getPlainText")]
+    [Route("/stream")]
     [Produces("text/plain")]
-    public async Task<string> GetText(IFormFile f, string model = "fast", bool singleLine = false, bool includeTimestamps = true)
+    public async IAsyncEnumerable<string> GetTextStream(IFormFile file, string model, bool timestamps = false, bool singleLine = false, bool statistics =true)
     {
-        _logger.LogInformation("Transcribing '{FileName}' ({Length}) using model: {Model}", f.FileName, f.Length, model);
-
-        var sb = new StringBuilder();
-        await foreach (var segment in _trans.Process(f, model, HttpContext.RequestAborted))
+        _logger.LogInformation("Streaming Plaintext {Length}) using model: {Model}", file.Length, model);
+        var dto = new TranscribeDto(file,  model, timestamps, singleLine, statistics);
+        await foreach (var segment in _trans.Process(dto, HttpContext.RequestAborted))
         {
             _logger.LogInformation("[{start} - {end}] {text}", segment.Start, segment.End, segment.Text);
-            if (singleLine && !includeTimestamps)
-                sb.Append(segment.Text);
-            else
-                sb.AppendLine(includeTimestamps
-                    ? $"[{segment.Start.ToString(@"hh\:mm\:ss")} - {segment.End.ToString(@"hh\:mm\:ss")}]\t{segment.Text}"
-                    : segment.Text);
+            yield return segment.Text + (singleLine ? string.Empty : Environment.NewLine);
         }
-        sb.AppendLine();
-        _logger.LogInformation("Finished transcribing: {FileName}", f.FileName);
-        return sb.ToString();
+        yield return Environment.NewLine;
+        if(dto.statistics)
+        yield return _trans.GetStatistics();
     }
 }
