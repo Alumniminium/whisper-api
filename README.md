@@ -221,6 +221,79 @@ whisper-tiny-q4_0.txt
 whisper-small-q4_0.txt
 ```
 
+### Output
+
+Quite surprisingly, the quantized models seem to perform better than the originals (q16)
+
+```
+Score: 6.51 WER: 0.02 Levenshtein: 13.00 - whisper-large-v0-q5_1.txt
+Score: 6.51 WER: 0.02 Levenshtein: 13.00 - whisper-large-v2-q5_1.txt
+Score: 7.51 WER: 0.02 Levenshtein: 15.00 - whisper-large-v0-q4_2.txt
+Score: 7.51 WER: 0.02 Levenshtein: 15.00 - whisper-large-v2-q4_2.txt
+Score: 12.52 WER: 0.04 Levenshtein: 25.00 - whisper-large-v0-q4_1.txt
+Score: 12.52 WER: 0.04 Levenshtein: 25.00 - whisper-large-v2-q4_1.txt
+Score: 13.52 WER: 0.04 Levenshtein: 27.00 - whisper-large-v0-q5_0.txt
+Score: 13.52 WER: 0.04 Levenshtein: 27.00 - whisper-large-v2-q5_0.txt
+Score: 14.52 WER: 0.04 Levenshtein: 29.00 - whisper-large-v0-q4_0.txt
+Score: 14.52 WER: 0.04 Levenshtein: 29.00 - whisper-large-v2-q4_0.txt
+Score: 18.03 WER: 0.05 Levenshtein: 36.00 - whisper-large-v1-q16.txt
+Score: 18.03 WER: 0.05 Levenshtein: 36.00 - whisper-medium-q4_2.txt
+Score: 18.53 WER: 0.05 Levenshtein: 37.00 - whisper-medium-q16.txt
+Score: 19.03 WER: 0.05 Levenshtein: 38.00 - whisper-medium-q5_1.txt
+Score: 20.53 WER: 0.06 Levenshtein: 41.00 - whisper-medium-q4_1.txt
+Score: 21.53 WER: 0.06 Levenshtein: 43.00 - whisper-large-v1-q4_1.txt
+Score: 21.53 WER: 0.06 Levenshtein: 43.00 - whisper-large-v1-q4_2.txt
+Score: 21.53 WER: 0.06 Levenshtein: 43.00 - whisper-medium-en-q4_2.txt
+Score: 22.03 WER: 0.06 Levenshtein: 44.00 - whisper-large-v0-q16.txt
+Score: 23.03 WER: 0.06 Levenshtein: 46.00 - whisper-large-v1-q5_1.txt
+Score: 24.03 WER: 0.07 Levenshtein: 48.00 - whisper-large-v1-q5_0.txt
+Score: 24.03 WER: 0.07 Levenshtein: 48.00 - whisper-small-q16.txt
+Score: 27.04 WER: 0.08 Levenshtein: 54.00 - whisper-large-v1-q4_0.txt
+Score: 28.04 WER: 0.08 Levenshtein: 56.00 - whisper-small-en-q4_1.txt
+Score: 28.04 WER: 0.08 Levenshtein: 56.00 - whisper-small-q5_1.txt
+Score: 28.54 WER: 0.08 Levenshtein: 57.00 - whisper-small-q5_0.txt
+Score: 31.04 WER: 0.09 Levenshtein: 62.00 - whisper-small-q4_2.txt
+Score: 31.54 WER: 0.09 Levenshtein: 63.00 - whisper-small-en-q5_0.txt
+Score: 32.55 WER: 0.09 Levenshtein: 65.00 - whisper-small-q4_1.txt
+Score: 33.55 WER: 0.09 Levenshtein: 67.00 - whisper-medium-q4_0.txt
+Score: 35.55 WER: 0.10 Levenshtein: 71.00 - whisper-small-en-q4_0.txt
+Score: 42.06 WER: 0.12 Levenshtein: 84.00 - whisper-small-q4_0.txt
+Score: 48.57 WER: 0.14 Levenshtein: 97.00 - whisper-medium-en-q4_1.txt
+Score: 49.07 WER: 0.14 Levenshtein: 98.00 - whisper-small-en-q5_1.txt
+Score: 51.07 WER: 0.14 Levenshtein: 102.00 - whisper-medium-en-q5_0.txt
+Score: 51.57 WER: 0.14 Levenshtein: 103.00 - whisper-base-en-q5_1.txt
+Score: 52.57 WER: 0.15 Levenshtein: 105.00 - whisper-medium-en-q16.txt
+Score: 54.07 WER: 0.15 Levenshtein: 108.00 - whisper-base-en-q16.txt
+Score: 54.08 WER: 0.15 Levenshtein: 108.00 - whisper-tiny-en-q16.txt
+Score: 56.58 WER: 0.15 Levenshtein: 113.00 - whisper-base-q5_1.txt
+Score: 58.08 WER: 0.16 Levenshtein: 116.00 - whisper-base-en-q5_0.txt
+Score: 59.58 WER: 0.16 Levenshtein: 119.00 - whisper-base-en-q4_2.txt
+Score: 60.08 WER: 0.16 Levenshtein: 120.00 - whisper-base-en-q4_1.txt
+Score: 62.08 WER: 0.17 Levenshtein: 124.00 - whisper-base-q16.txt
+Score: 63.59 WER: 0.17 Levenshtein: 127.00 - whisper-base-q4_1.txt
+Score: 64.09 WER: 0.18 Levenshtein: 128.00 - whisper-tiny-en-q5_1.txt
+Score: 67.09 WER: 0.18 Levenshtein: 134.00 - whisper-base-q4_2.txt
+Score: 72.10 WER: 0.20 Levenshtein: 144.00 - whisper-base-q5_0.txt
+Score: 76.10 WER: 0.21 Levenshtein: 152.00 - whisper-base-q4_0.txt
+Score: 77.61 WER: 0.22 Levenshtein: 155.00 - whisper-tiny-q16.txt
+Score: 82.62 WER: 0.23 Levenshtein: 165.00 - whisper-tiny-en-q4_2.txt
+Score: 83.62 WER: 0.24 Levenshtein: 167.00 - whisper-tiny-q5_1.txt
+Score: 87.62 WER: 0.25 Levenshtein: 175.00 - whisper-tiny-q5_0.txt
+Score: 88.62 WER: 0.25 Levenshtein: 177.00 - whisper-tiny-en-q4_0.txt
+Score: 102.14 WER: 0.29 Levenshtein: 204.00 - whisper-tiny-en-q4_1.txt
+Score: 113.16 WER: 0.32 Levenshtein: 226.00 - whisper-small-en-q4_2.txt
+Score: 123.67 WER: 0.35 Levenshtein: 247.00 - whisper-tiny-q4_1.txt
+Score: 311.44 WER: 0.88 Levenshtein: 622.00 - whisper-tiny-en-q5_0.txt
+Score: 355.00 WER: 1.00 Levenshtein: 709.00 - whisper-base-en-q4_0.txt
+Score: 355.00 WER: 1.00 Levenshtein: 709.00 - whisper-medium-en-q4_0.txt
+Score: 355.00 WER: 1.00 Levenshtein: 709.00 - whisper-medium-en-q5_1.txt
+Score: 355.00 WER: 1.00 Levenshtein: 709.00 - whisper-small-en-q16.txt
+Score: 355.00 WER: 1.00 Levenshtein: 709.00 - whisper-tiny-q4_0.txt
+Score: 355.00 WER: 1.00 Levenshtein: 709.00 - whisper-tiny-q4_2.txt
+
+The filename of the best transcript is: whisper-large-v0-q5_1.txt
+```
+
 ## Contributions
 
 I'll accept pretty much any PR. 
