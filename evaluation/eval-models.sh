@@ -15,7 +15,7 @@ while read -r model; do
   fi
 
   echo "Evaluating $model_name -> $output_file..."
-  command="curl -sNX 'POST' 'http://localhost:5045/stream?model=$model_name&timestamps=false&singleLine=true&statistics=true' -H 'accept: text/plain' -H 'Content-Type: multipart/form-data' -F 'file=@The TV Screen.mp3;type=audio/mpeg' | tee  $output_file"
+  command="curl -sNX 'POST' 'http://localhost:5045/stream?model=$model_name&timestamps=false&singleLine=true&statistics=false' -H 'accept: text/plain' -H 'Content-Type: multipart/form-data' -F 'file=@The TV Screen.mp3;type=audio/mpeg' | tee  $output_file"
   eval "$command"
   cleaned=$(cat $output_file | sed 's/^\s*\[[^]]*\]\s*//; s/\s*\[[^]]*\]\s*$//')
   echo $cleaned > $output_file
