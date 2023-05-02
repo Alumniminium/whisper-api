@@ -1,0 +1,1 @@
+[Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] [Music] {END} Wait Time : 0.00 sec Model Load: 0.10 sec Decoding : 0.64 sec Transcribe: 18.74 sec Total Time: 19.49 sec

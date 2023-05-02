@@ -1,0 +1,1 @@
+*Music* *Music* *Music* *Music* *Music* *Music* *Music* *Music* *Music* *Music* *Music* {END} Wait Time : 0.00 sec Model Load: 1.62 sec Decoding : 1.57 sec Transcribe: 773.88 sec Total Time: 777.07 sec
